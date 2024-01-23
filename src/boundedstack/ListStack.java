@@ -1,6 +1,8 @@
 package boundedstack;
 
-public class ListStack implements Stack{
+import java.util.List;
+
+public class ListStack<E> implements Stack<E> {
     private List<E> contents;
     private final int capacity;
 
@@ -9,22 +11,24 @@ public class ListStack implements Stack{
     }
 
     @Override
-    public void push(Object element) {
-
+    public void push(E element) {
+        if(contents.size()<capacity) contents.add(element);
     }
 
     @Override
-    public Object pop() {
-        return null;
+    public E pop() {
+        E lastEle = contents.getLast();
+        contents.remove(0);
+        return lastEle;
     }
 
     @Override
     public int depth() {
-        return 0;
+        return contents.size();
     }
 
     @Override
     public int capacity() {
-        return 0;
+        return capacity;
     }
 }
