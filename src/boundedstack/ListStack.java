@@ -1,25 +1,29 @@
 package boundedstack;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class ListStack<E> implements Stack<E> {
-    private List<E> contents;
+    private final List<E> contents;
     private final int capacity;
 
     public ListStack(int capacity) {
+        if(capacity < 0 ) throw new IllegalArgumentException();
         this.capacity = capacity;
+        contents = new ArrayList<E>();
     }
 
     @Override
     public void push(E element) {
-        if(contents.size()<capacity) contents.add(element);
+        if (element == null) throw new IllegalArgumentException();
+        if(contents.size() == capacity) throw new IllegalStateException();
+        contents.add(element);
     }
 
     @Override
     public E pop() {
-        E lastEle = contents.getLast();
-        contents.remove(0);
-        return lastEle;
+        if (contents.size() == 0) throw new IllegalStateException();
+        return contents.remove(contents.size() - 1);
     }
 
     @Override
